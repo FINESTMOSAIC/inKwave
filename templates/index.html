@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inKwave</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <nav class="Navbar">
+        <div class="nav_logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}">
+        </div>
+        <div class="nav_text">
+            <!-- <h5 id="home"> <a href="">Home</a> </h5> -->
+            <h5 id = "app" ><a class="active" href="">App</a></h5>
+            <h5 id = "about"><a href="about">About</a></h5>
+        </div>
+    </nav>
+
+
+
+    <div class="main">
+        
+
+
+    <div class="text">
+
+    
+
+
+   
+    <div>
+        <!-- <button onclick="startCamera()">Start Camera</button> -->
+        <button onclick="clearCanvas()">Clear Canvas</button>
+        <button id="toggleButton" onclick="toggleHandRecognition()">Disable Hand Recognition</button>
+         <!-- Button to Save Canvas -->
+    <button id ="save" onClick="saveCanvas()">Save Drawing</button>
+    </div>
+    <!-- <div>
+        <button onclick="setColor('r')">Red</button>
+        <button onclick="setColor('g')">Green</button>
+        <button onclick="setColor('b')">Blue</button>
+        
+        <button onclick="setColor('y')">White</button>
+        <button onclick="setColor('z')">Custom Pink</button>
+        <button onclick="setColor('f')">Custom Green</button>
+    </div> -->
+    <div>
+    <label for="color">Choose a color:</label>
+<select name="color" id="color" onchange="setColor(this.value)">
+  <option value="r">Red</option>
+  <option value="g">Green</option>
+  <option value="b">Blue</option>
+  <option value="y">White</option>
+  <option value="z">Custom Pink</option>
+  <option value="f">Custom Green</option>
+  <option value="e">Eraser</option>
+</select>
+
+
+</div>
+<div class="app">
+
+
+<div class="left">
+    <h2 style="width: 640px;" >Hand Detection and Drawing</h2>
+
+
+
+    <!-- <img id="video-feed"  style="width: 640px; height: 480px; border: solid black 1px;" /> -->
+    <img id="video-feed" src="/video_feed"  style="width: 640px; height: 480px;" />
+</div>
+<div class="right">
+
+
+    <h2 style="width: 640px;">Black and White Drawing</h2>
+    <img id="blackCanvasFeed" src="/black_canvas_feed" alt="Black Canvas Feed" style="min-width: 640px; width: 640px; min-height: 480px; border: solid black 1px;">
+</div>
+</div>
+
+</div>
+
+
+</div>
+
+    <footer>
+        <h3>  All rights reserved @FinestMosaic69 aka Agrim Kulshreshtha </h3>
+
+
+
+    </footer>
+
+    <script>
+
+
+        // windows.onload = function() {
+        //     document.getElementById('video-feed').src = "/video_feed";
+        // }
+
+        function clearCanvas() {
+            fetch('/clear_canvas');
+        }
+
+        function setColor(color) {
+            fetch('/set_color/' + color);
+        }
+
+        function toggleHandRecognition() {
+            const button = document.getElementById('toggleButton');
+            const currentStatus = button.innerText.includes('Enable') ? 'enable' : 'disable';
+
+            fetch(`/toggle_hand_recognition/${currentStatus}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                })
+                .then(status => {
+                    button.innerText = status === 'enabled' ? 'Disable Hand Recognition' : 'Enable Hand Recognition';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function saveCanvas() {
+            fetch('/save_canvas')
+                .then(response => {
+                    if (response.ok) {
+                        alert('Drawing saved successfully!');
+                    } else {
+                        alert('Failed to save drawing.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
