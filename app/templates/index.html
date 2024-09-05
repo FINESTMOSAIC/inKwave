@@ -33,7 +33,7 @@
 
    
     <div>
-        <!-- <button onclick="startCamera()">Start Camera</button> -->
+        <button onclick="startCamera()">Start Camera</button>
         <button onclick="clearCanvas()">Clear Canvas</button>
         <button id="toggleButton" onclick="toggleHandRecognition()">Disable Hand Recognition</button>
          <!-- Button to Save Canvas -->
@@ -71,7 +71,7 @@
 
 
     <!-- <img id="video-feed"  style="width: 640px; height: 480px; border: solid black 1px;" /> -->
-    <img id="video-feed" src="/video_feed"  style="width: 640px; height: 480px;" />
+    <img id="video-feed" src=""  style="width: 640px; height: 480px;" />
 </div>
 <div class="right">
 
@@ -94,6 +94,10 @@
     </footer>
 
     <script>
+
+        function startCamera(){
+            document.getElementById('video-feed').src = "/video_feed";
+        }
 
 
         // windows.onload = function() {

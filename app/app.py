@@ -26,25 +26,25 @@ mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
 
+cap = cv2.VideoCapture(0)
+
+if not cap.isOpened():
+    cap = None  # Disable camera-related functionality
+if cap:
+    global width
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    global height
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+    # Create a black canvas
+    global canvas
+    canvas = np.zeros((height, width, 3), dtype=np.uint8)
+    global selected_color
+    selected_color = (0, 255, 0)  # Default to green
 
 
 @app.route('/')
 def index():
-    global cap
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        cap = None  # Disable camera-related functionality
-    if cap:
-        global width
-        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        global height
-        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-        # Create a black canvas
-        global canvas
-        canvas = np.zeros((height, width, 3), dtype=np.uint8)
-        global selected_color
-        selected_color = (0, 255, 0)  # Default to green
 
     return render_template('index.html')
 
@@ -148,4 +148,4 @@ def about():
     return render_template('about.html')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8001, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
