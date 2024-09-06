@@ -33,7 +33,7 @@
 
    
     <div>
-        <button onclick="startCamera()">Start Camera</button>
+        <button id="toggleButton2" onclick="toggleCamera()">Start Camera</button>
         <button onclick="clearCanvas()">Clear Canvas</button>
         <button id="toggleButton" onclick="toggleHandRecognition()">Disable Hand Recognition</button>
          <!-- Button to Save Canvas -->
@@ -51,8 +51,8 @@
     <div>
     <label for="color">Choose a color:</label>
 <select name="color" id="color" onchange="setColor(this.value)">
-  <option value="r">Red</option>
   <option value="g">Green</option>
+  <option value="r">Red</option>
   <option value="b">Blue</option>
   <option value="y">White</option>
   <option value="z">Custom Pink</option>
@@ -98,6 +98,27 @@
         function startCamera(){
             document.getElementById('video-feed').src = "/video_feed";
         }
+
+
+        function toggleCamera() {
+            const button = document.getElementById('toggleButton2');
+            const currentStatus = button.innerText.includes('Start');
+            
+
+            if (currentStatus){
+                document.getElementById('video-feed').src = "/video_feed";
+                button.innerText= "Stop Camera";
+
+
+            }
+            else{
+                document.getElementById('video-feed').src = "";
+                button.innerText= "Start Camera";
+                
+
+            }
+        }
+
 
 
         // windows.onload = function() {
